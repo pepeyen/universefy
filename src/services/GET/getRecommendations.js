@@ -1,4 +1,4 @@
-export default function getRecommendations({accessToken, searchType, seed, trackEnergy}) {
+export default function getRecommendations({accessToken, searchType, seed, trackEnergy, trackPopularity}) {
     return new Promise((resolve, reject) =>{   
         var myHeaders = new Headers();
         
@@ -12,7 +12,10 @@ export default function getRecommendations({accessToken, searchType, seed, track
         };
         switch (searchType) {
             case "track":
-                fetch(`https://api.spotify.com/v1/recommendations?seed_tracks=${seed}&min_energy=${trackEnergy}`
+                if(trackPopularity < 20){
+                    trackPopularity = 20;
+                }
+                fetch(`https://api.spotify.com/v1/recommendations?seed_tracks=${seed}&min_energy=${trackEnergy}&limit=${trackPopularity}`
                 , requestOptions)
                 .then((response) => {
                     resolve(response.json())

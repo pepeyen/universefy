@@ -1,0 +1,29 @@
+$white: #e9f2f2;
+$lightGreen: #36ffe3;
+$green: #27b8a3;
+$black: #1b1c1c;
+
+.node{
+    text-align: center;
+    list-style-type: none;
+
+    &__link{
+        font-family: "Nunito-SemiBold";
+        text-decoration: none;
+        color: $white;
+    }
+}
+@media (min-width: 801px) {
+    .node{
+
+        &__link{
+    
+            &:hover{
+                color: $green;
+            }
+            &:focus{
+                outline: none;
+            }
+        }
+    }
+}

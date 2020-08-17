@@ -1,0 +1,63 @@
+$white: #e9f2f2;
+$green: #1ED760;
+$black: #1b1c1c;
+
+.login{
+    text-decoration: none;
+
+    &__logo{
+        margin: 5rem 0 0 0;
+        background-image: url('../../assets/Logo.svg');
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: 24rem;
+        height: 25rem;
+    }
+    &__button{
+        display: block;
+        color: $white;
+        font-family: "Nunito-Bold";
+        font-size: 1.2rem;
+        background-color: #272929;
+        border: none;
+        border-radius: 3rem;
+        margin: .5rem auto 0 auto;
+        padding: .5rem 2rem .5rem 2rem;
+        animation: glowing-border 3000ms infinite;
+
+        &:focus{
+            outline: none;
+        }
+    }
+}
+@media (min-width: 801px) {
+    .login{
+        
+        &__logo{
+            margin: 5vh 0 0 0;
+            background-image: url('../../assets/Logo.svg');
+            background-size: 100vh;
+            height: 60vh;
+        }
+        &__button{
+            font-size: 2vh;
+            border-radius: 5vh;
+            margin: 2vh auto 0 auto;
+            padding: 1vh 4vh 1vh 4vh;
+    
+            &:hover{
+                cursor: pointer;
+                color: $black;
+                border-color: transparent;
+                background-color: $green;
+                animation: none;
+                transition: animation ease-in-out 50ms;
+            }
+        }
+    }
+}
+@keyframes glowing-border {
+    0% { border-color: #272929; }
+    50% { border-color: $green; }
+    100% { border-color: #272929; }
+}

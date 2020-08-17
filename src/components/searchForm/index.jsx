@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 
+//Styles
+import './searchform.scss';
+
 //Actions
 import {setAuthValues, setRecommendations} from '../../actions'
 
 //Services
-import getSeed from '../../services/GET/getSeed';
-import getAuthValues from '../../services/GET/getAuthValues';
-import getRecommendations from '../../services/GET/getRecommendations';
-import getTrackEnergy from '../../services/GET/getTrackEnergy';
+import getSeed from '../../services/getSeed';
+import getAuthValues from '../../services/getAuthValues';
+import getRecommendations from '../../services/getRecommendations';
+import getTrackEnergy from '../../services/getTrackEnergy';
 
 function SearchForm() {
     const [userSearchText, setUserSearchText] = useState('');
@@ -45,26 +48,25 @@ function SearchForm() {
                     searchText: track.name
                 })
                 .then(res => {
+                    track.name = res.tracks.items[0].name;
+                    track.seed = res.tracks.items[0].id;
+                    track.url = res.tracks.items[0].external_urls.spotify;
+                    track.popularity = res.tracks.items[0].popularity;
 
-                track.name = res.tracks.items[0].name;
-                track.seed = res.tracks.items[0].id;
-                track.url = res.tracks.items[0].external_urls.spotify;
-                track.popularity = res.tracks.items[0].popularity;
-
-                getTrackEnergy(authValues.access_token,track.seed)
-                .then(res => {
-                    track.energy = res.audio_features[0].energy;
-                    getRecommendations({
-                        accessToken: authValues.access_token, 
-                        searchType: "track",
-                        seed: track.seed,
-                        trackEnergy: track.energy,
-                        trackPopularity: track.popularity
-                    })
+                    getTrackEnergy(authValues.access_token,track.seed)
                     .then(res => {
-                        dispatch(setRecommendations(res.tracks));
+                        track.energy = res.audio_features[0].energy;
+                        getRecommendations({
+                            accessToken: authValues.access_token, 
+                            searchType: "track",
+                            seed: track.seed,
+                            trackEnergy: track.energy,
+                            trackPopularity: track.popularity
+                        })
+                        .then(res => {
+                            dispatch(setRecommendations(res.tracks));
+                        })
                     })
-                })
                 })
                 break;
             case "artist":
@@ -101,18 +103,25 @@ function SearchForm() {
             <input 
                 className="search-form__input"
                 type="text" 
-                placeholder="Search for a song" 
+                placeholder="Insert a track or artist" 
                 onChange={userSearchTextHandler}
             />
-            <select
-                className="search-form__types"
-                id="search-type" 
-                name="search-type" 
-                onChange={userSearchTypeHandler}
-            >
-                <option value="track">Track</option>
-                <option value="artist">Artist</option>
-            </select> 
+            <div className="search-form__types">
+                <button 
+                    className={userSearchType === "track" ? "search-form__type --active": "search-form__type"}
+                    value="track"
+                    onClick={userSearchTypeHandler}
+                >
+                    Track
+                </button>
+                <button 
+                    className={userSearchType === "artist" ? "search-form__type --active": "search-form__type"}
+                    value="artist"
+                    onClick={userSearchTypeHandler}
+                >
+                    Artist
+                </button>
+            </div> 
             <button 
                 className="search-form__submit"
                 onClick={getTracks}

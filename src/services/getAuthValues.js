@@ -9,6 +9,8 @@ export default function getAuthValues() {
     }
     return initial;
   }, {});
+
   //window.location.hash = ""
+
   return parsed;
 }

@@ -8,8 +8,8 @@ import {
 import './App.css';
 
 //Components
-import LoginScreen from './views/login';
-import SearchScreen from './views/search';
+import LoginScreen from './views/LoginScreen';
+import SearchScreen from './views/SearchScreen';
 
 
 function App (){

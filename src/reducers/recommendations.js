@@ -1,4 +1,4 @@
-const recommendationsReducer = (state = {}, action) => {
+const recommendationsReducer = (state = [], action) => {
     switch(action.type){
         case 'SET_RECOMMENDATIONS':
             return state = action.recommendations;

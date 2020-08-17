@@ -1,16 +1,15 @@
 export default function getAuthValues() {
-  const parsed = window.location.hash
-  .substring(9)
-  .split("&")
-  .reduce(function(initial, item) {
-    if (item) {
-      var parts = item.split("=");
-      initial[parts[0]] = decodeURIComponent(parts[1]);
-    }
-    return initial;
-  }, {});
+  let token = window.location.hash.substr(9);
+  let authTokens = {
+    access_token: '',
+    refresh_token: ''
+  }
+  if (token) {
+      const o = Object.fromEntries(new URLSearchParams(token));
 
-  //window.location.hash = ""
+      authTokens.access_token = o.access_token;
+      authTokens.refresh_token = o.refresh_token;
 
-  return parsed;
+      return authTokens;
+  }
 }

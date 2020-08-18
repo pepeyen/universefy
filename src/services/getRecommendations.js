@@ -5,11 +5,13 @@ export default function getRecommendations({accessToken, searchType, seed, track
         myHeaders.append("Accept", "application/json");
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", `Bearer ${accessToken}`);
+
         var requestOptions = {
             method: 'GET',
             headers: myHeaders,
             redirect: 'follow'
         };
+        
         switch (searchType) {
             case "track":
                 if(trackPopularity < 20){

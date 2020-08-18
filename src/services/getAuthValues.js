@@ -1,5 +1,5 @@
 export default function getAuthValues() {
-  let token = window.location.hash.substr(9);
+  let token = window.location.hash.substr(2);
   let authTokens = {
     access_token: '',
     refresh_token: ''

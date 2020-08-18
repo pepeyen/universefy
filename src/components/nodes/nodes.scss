@@ -4,13 +4,18 @@ $green: #27b8a3;
 $black: #1b1c1c;
 
 .node{
+    font-family: "Nunito-SemiBold";
     text-align: center;
     list-style-type: none;
 
     &__link{
-        font-family: "Nunito-SemiBold";
-        text-decoration: none;
         color: $white;
+        text-decoration: none;
+    }
+    &__feedback{
+        color: #272929;
+        margin: 5rem 0 0 0;
+        font-size: 2rem;
     }
 }
 @media (min-width: 801px) {
@@ -24,6 +29,11 @@ $black: #1b1c1c;
             &:focus{
                 outline: none;
             }
+        }
+        &__feedback{
+            color: #272929;
+            margin: 10vh 0 0 0;
+            font-size: 4vh;
         }
     }
 }

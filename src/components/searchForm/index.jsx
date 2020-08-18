@@ -15,7 +15,7 @@ import getTrackEnergy from '../../services/getTrackEnergy';
 
 function SearchForm() {
     const [userSearchText, setUserSearchText] = useState('');
-    const [userSearchType, setUserSearchType] = useState('track');
+    const [userSearchType, setUserSearchType] = useState('Track');
     const dispatch = useDispatch();
     const authValues = useSelector(state => state.authValues);
 
@@ -32,7 +32,7 @@ function SearchForm() {
     };
     const getTracks = () => {
         switch (userSearchType) {
-            case "track":
+            case "Track":
                 let track = {
                     name: '',
                     seed: '',
@@ -43,7 +43,7 @@ function SearchForm() {
             
                 track.name = userSearchText;
                 getSeed({
-                    searchType: "track",
+                    searchType: "Track",
                     accessToken: authValues.access_token, 
                     searchText: track.name
                 })
@@ -61,7 +61,7 @@ function SearchForm() {
                             track.energy = res.audio_features[0].energy;
                             getRecommendations({
                                 accessToken: authValues.access_token, 
-                                searchType: "track",
+                                searchType: "Track",
                                 seed: track.seed,
                                 trackEnergy: track.energy,
                                 trackPopularity: track.popularity
@@ -73,7 +73,7 @@ function SearchForm() {
                     }
                 })
                 break;
-            case "artist":
+            case "Artist":
                 let artist = {
                     name: '',
                     seed: '',
@@ -83,7 +83,7 @@ function SearchForm() {
                 artist.name = userSearchText;
                 getSeed({
                     accessToken: authValues.access_token, 
-                    searchType: "artist",
+                    searchType: "Artist",
                     searchText: artist.name
                 })
                 .then(res => {
@@ -93,7 +93,7 @@ function SearchForm() {
                         artist.seed = res.artists.items[0].id;
                         getRecommendations({
                             accessToken: authValues.access_token, 
-                            searchType: "artist",
+                            searchType: "Artist",
                             seed: artist.seed
                         })
                         .then(res => {
@@ -108,23 +108,29 @@ function SearchForm() {
     };
     return(
         <div className="search-form">
+            <label 
+                className="search-form__label"
+                to="userInput"
+            >
+                Insert the <span>{userSearchType}</span>
+            </label>
             <input 
-                className="search-form__input"
+                className="search-form__text"
+                name="userInput"
                 type="text" 
-                placeholder="Insert a track or artist" 
                 onChange={userSearchTextHandler}
             />
             <div className="search-form__types">
                 <button 
-                    className={userSearchType === "track" ? "search-form__type --active": "search-form__type"}
-                    value="track"
+                    className={userSearchType === "Track" ? "search-form__type --active": "search-form__type"}
+                    value="Track"
                     onClick={userSearchTypeHandler}
                 >
                     Track
                 </button>
                 <button 
-                    className={userSearchType === "artist" ? "search-form__type --active": "search-form__type"}
-                    value="artist"
+                    className={userSearchType === "Artist" ? "search-form__type --active": "search-form__type"}
+                    value="Artist"
                     onClick={userSearchTypeHandler}
                 >
                     Artist

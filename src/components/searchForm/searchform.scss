@@ -1,5 +1,6 @@
 $white: #e9f2f2;
 $lightGreen: #36ffe3;
+$ligtherGreen: #1ED760;
 $green: #27b8a3;
 $black: #1b1c1c;
 
@@ -10,18 +11,25 @@ $black: #1b1c1c;
     align-items: center;
     justify-content: center;
 
-    &__input{
-        width: 100%;
+    &__label{
+        font-family: "Nunito-SemiBold";
+        color: $white;
+        font-size: 1rem;
+
+        span{
+            color: $ligtherGreen;
+        }
+    }
+    &__text{
+        width: 70%;
         font-family: "Nunito-SemiBold";
         text-align: center;
         background-color: #272929;
-        color: white;
+        color: $white;
         padding: .5rem 0 .5rem 0;
         font-size: 1rem;
 
-        border: none;
-        border-left: .15rem solid transparent;
-        border-right: .15rem solid transparent;
+        border: .1rem solid transparent;
         border-radius: 2rem;
 
         &:focus{
@@ -40,7 +48,7 @@ $black: #1b1c1c;
     &__type{
         font-family: "Nunito-SemiBold";
         background-color: #272929;
-        color: white;
+        color: $white;
         font-size: 2vh;
         border: none;
         border-radius: 2rem;
@@ -55,7 +63,7 @@ $black: #1b1c1c;
         width: 40%;
         font-family: "Nunito-SemiBold";
         background-color: #272929;
-        color: white;
+        color: $white;
         font-size: 1rem;
         border: none;
         border-radius: 2rem;
@@ -70,11 +78,17 @@ $black: #1b1c1c;
 @media (min-width: 801px) {
     .search-form{
         margin: 5vh 0 0 0;
-        &__input{
+
+        &__label{
+            font-size: 2.5vh;
+            margin: 0 0 1vh 0;
+        }
+        &__text{
             width: 30%;
-            padding: 1vh 0 1vh 0;
+            padding: .5vh 1.5vh .5vh 1.5vh;
             font-size: 2vh;
-            border: .3vh solid transparent;
+            border: .1vh solid transparent;
+            height: 3vh;
             border-radius: 5vh;
         }
         &__types{

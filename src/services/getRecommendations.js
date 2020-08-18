@@ -13,7 +13,7 @@ export default function getRecommendations({accessToken, searchType, seed, track
         };
         
         switch (searchType) {
-            case "track":
+            case "Track":
                 if(trackPopularity < 20){
                     trackPopularity = 20;
                 }
@@ -26,7 +26,7 @@ export default function getRecommendations({accessToken, searchType, seed, track
                     reject(error)
                 });
                 break;
-            case "artist":
+            case "Artist":
                 fetch(`https://api.spotify.com/v1/recommendations?seed_artists=${seed}`
                 , requestOptions)
                 .then((response) => {

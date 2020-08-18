@@ -31,8 +31,8 @@ function Nodes() {
         );
     }else{
         return(
-            <div>
-                <p>Nothing was found</p>
+            <div className="node">
+                <div className="node__feedback">Nothing was found</div>
             </div>
         )
     }

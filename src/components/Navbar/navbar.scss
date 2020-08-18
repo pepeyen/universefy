@@ -1,0 +1,38 @@
+$white: #e9f2f2;
+$lightGreen: #36ffe3;
+$green: #27b8a3;
+$black: #1b1c1c;
+
+.navbar{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    padding: 0;
+    width: 6vh;
+    height: 100%;
+    background-color: #272929;
+
+    &:hover{
+        cursor: pointer;
+        background-color: #333636;
+    }
+
+    &__button{
+        display: block;
+        width: 3.2vh;
+        height: 3.2vh;
+        margin: 0 auto 0 auto;
+
+    }
+}
+.--logout{
+    background-image: url('../../assets/sign-out.svg');
+    background-size: 3.2vh;
+    background-position: center;
+    background-repeat: no-repeat;
+}

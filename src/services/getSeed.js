@@ -12,7 +12,7 @@ export default function getSeed ({accessToken, searchType, searchText}){
             redirect: 'follow'
         };
         switch (searchType) {
-            case "artist":
+            case "Artist":
                 fetch(`https://api.spotify.com/v1/search?query=${searchText}&type=artist&offset=0&limit=1`
                 , requestOptions)
                 .then((response) => {
@@ -22,7 +22,7 @@ export default function getSeed ({accessToken, searchType, searchText}){
                     reject(error)
                 }); 
                 break;
-            case "track":
+            case "Track":
                 fetch(`https://api.spotify.com/v1/search?query=${searchText}&type=track&offset=0&limit=1`
                 , requestOptions)
                 .then((response) => {

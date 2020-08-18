@@ -48,25 +48,29 @@ function SearchForm() {
                     searchText: track.name
                 })
                 .then(res => {
-                    track.name = res.tracks.items[0].name;
-                    track.seed = res.tracks.items[0].id;
-                    track.url = res.tracks.items[0].external_urls.spotify;
-                    track.popularity = res.tracks.items[0].popularity;
-
-                    getTrackEnergy(authValues.access_token,track.seed)
-                    .then(res => {
-                        track.energy = res.audio_features[0].energy;
-                        getRecommendations({
-                            accessToken: authValues.access_token, 
-                            searchType: "track",
-                            seed: track.seed,
-                            trackEnergy: track.energy,
-                            trackPopularity: track.popularity
-                        })
+                    if(res.tracks.items.length === 0){
+                        dispatch(setRecommendations({tracks: [], isErrorLess: false}));
+                    }else{
+                        track.name = res.tracks.items[0].name;
+                        track.seed = res.tracks.items[0].id;
+                        track.url = res.tracks.items[0].external_urls.spotify;
+                        track.popularity = res.tracks.items[0].popularity;
+    
+                        getTrackEnergy(authValues.access_token,track.seed)
                         .then(res => {
-                            dispatch(setRecommendations(res.tracks));
+                            track.energy = res.audio_features[0].energy;
+                            getRecommendations({
+                                accessToken: authValues.access_token, 
+                                searchType: "track",
+                                seed: track.seed,
+                                trackEnergy: track.energy,
+                                trackPopularity: track.popularity
+                            })
+                            .then(res => {
+                                dispatch(setRecommendations({tracks: res.tracks, isErrorLess: true}));
+                            })
                         })
-                    })
+                    }
                 })
                 break;
             case "artist":
@@ -83,15 +87,19 @@ function SearchForm() {
                     searchText: artist.name
                 })
                 .then(res => {
-                    artist.seed = res.artists.items[0].id;
-                    getRecommendations({
-                        accessToken: authValues.access_token, 
-                        searchType: "artist",
-                        seed: artist.seed
-                    })
-                    .then(res => {
-                        dispatch(setRecommendations(res.tracks));
-                    })
+                    if(res.artists.items.length === 0){
+                        dispatch(setRecommendations({tracks: [], isErrorLess: false}));
+                    }else{
+                        artist.seed = res.artists.items[0].id;
+                        getRecommendations({
+                            accessToken: authValues.access_token, 
+                            searchType: "artist",
+                            seed: artist.seed
+                        })
+                        .then(res => {
+                            dispatch(setRecommendations({tracks: res.tracks, isErrorLess: true}));
+                        })
+                    }
                 })
                 break;
             default:

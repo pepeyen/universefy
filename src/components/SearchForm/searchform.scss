@@ -10,7 +10,15 @@ $black: #1b1c1c;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 15rem;
+    height: 15rem;
+    margin: 2vh auto 2vh auto;
+    border: .1rem solid #272929;
+    border-radius: 50%;
 
+    &:focus-within{
+        animation: glowing-border 3000ms infinite;
+    }
     &__label{
         font-family: "Nunito-SemiBold";
         color: $white;
@@ -31,11 +39,6 @@ $black: #1b1c1c;
 
         border: .1rem solid transparent;
         border-radius: 2rem;
-
-        &:focus{
-            animation: glowing-border 3000ms infinite;
-            outline: none;
-        }
     }
     &__types{
         display: flex;
@@ -43,7 +46,7 @@ $black: #1b1c1c;
         align-items: center;
         justify-content: center;
         font-size: 1rem;
-        margin: 1rem 0 1rem 0;
+        margin: 1rem 0 1rem 0; 
     }
     &__type{
         font-family: "Nunito-SemiBold";
@@ -77,14 +80,17 @@ $black: #1b1c1c;
 
 @media (min-width: 801px) {
     .search-form{
-        margin: 5vh 0 0 0;
+        border: .2vh solid #272929;
+        width: 30vh;
+        height: 30vh;
+        margin: 5vh auto 5vh auto;
 
         &__label{
             font-size: 2.5vh;
             margin: 0 0 1vh 0;
         }
         &__text{
-            width: 30%;
+            width: 60%;
             padding: .5vh 1.5vh .5vh 1.5vh;
             font-size: 2vh;
             border: .1vh solid transparent;
@@ -106,7 +112,7 @@ $black: #1b1c1c;
             }
         }
         &__submit{
-            width: 20%;
+            width: 50%;
             font-size: 2vh;
             border-radius: 5vh;
             padding: 1vh 0 1vh 0;

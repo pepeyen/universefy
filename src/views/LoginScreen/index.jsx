@@ -27,6 +27,17 @@ function LoginScreen() {
                         Log In with Spotify
                     </button>
                 </a>
+                <div className="login__player">
+                    <iframe 
+                        title="spotify-player"
+                        src="https://open.spotify.com/embed/playlist/6qnV44cGctRXC1LzVvLmeF" 
+                        width="100%" 
+                        height="80" 
+                        frameborder="0" 
+                        allowtransparency="true" 
+                        allow="encrypted-media"
+                    />
+                </div>
             </div>
         );
     } 

@@ -10,14 +10,15 @@ $black: #1b1c1c;
         background-image: url('../../assets/logo.svg');
         background-position: center;
         background-repeat: no-repeat;
-        background-size: 24rem;
-        height: 25rem;
+        background-size: 20rem;
+        height: 20rem;
     }
     &__button{
         display: block;
+        width: 70%;
         color: $white;
         font-family: "Nunito-Bold";
-        font-size: 1.2rem;
+        font-size: 1.5rem;
         background-color: #272929;
         border: none;
         border-radius: 3rem;
@@ -29,6 +30,11 @@ $black: #1b1c1c;
             outline: none;
         }
     }
+    &__player{
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
 }
 @media (min-width: 801px) {
     .login{
@@ -39,7 +45,8 @@ $black: #1b1c1c;
             height: 60vh;
         }
         &__button{
-            font-size: 2vh;
+            width: 25%;
+            font-size: 3vh;
             border-radius: 5vh;
             margin: 2vh auto 0 auto;
             padding: 1vh 4vh 1vh 4vh;

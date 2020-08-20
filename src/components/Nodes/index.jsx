@@ -10,31 +10,39 @@ function Nodes() {
     
     
     if(recommendationsIsErrorless === true){
-        return(
-            recommendationsTracks.map(function(item, i){
-                return(
-                    <li 
-                        className="node"
-                        key={i}
-                    >
-                        <a 
-                            className="node__link"
-                            href={item.external_urls.spotify}
-                            target="_blank"
-                            rel="noopener noreferrer"
+        if(recommendationsTracks.length > 0){
+            return(
+                recommendationsTracks.map(function(item, i){
+                    return(
+                        <li 
+                            className="node"
+                            key={i}
                         >
-                            {item.name}
-                        </a>
-                    </li>  
-                ) 
-            })
-        );
+                            <a 
+                                className="node__link"
+                                href={item.external_urls.spotify}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                {item.name}
+                            </a>
+                        </li>  
+                    ) 
+                })
+            );
+        }else{
+            return(
+                <div className="node">
+                    <div className="node__feedback">Click at the principal Node to start the search</div>
+                </div>
+            );
+        }
     }else{
         return(
             <div className="node">
                 <div className="node__feedback">Nothing was found</div>
             </div>
-        )
+        );
     }
     
 }

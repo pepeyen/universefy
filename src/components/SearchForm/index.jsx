@@ -16,6 +16,7 @@ import getTrackEnergy from '../../services/getTrackEnergy';
 function SearchForm() {
     const [userSearchText, setUserSearchText] = useState('');
     const [userSearchType, setUserSearchType] = useState('Track');
+    const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
     const authValues = useSelector(state => state.authValues);
 
@@ -40,7 +41,7 @@ function SearchForm() {
                     url: '',
                     popularity: 0
                 }
-            
+                setIsLoading(true);
                 track.name = userSearchText;
                 getSeed({
                     searchType: "Track",
@@ -49,6 +50,7 @@ function SearchForm() {
                 })
                 .then(res => {
                     if(res.tracks.items.length === 0){
+                        setIsLoading(false);
                         dispatch(setRecommendations({tracks: [], isErrorLess: false}));
                     }else{
                         track.name = res.tracks.items[0].name;
@@ -67,6 +69,7 @@ function SearchForm() {
                                 trackPopularity: track.popularity
                             })
                             .then(res => {
+                                setIsLoading(false);
                                 dispatch(setRecommendations({tracks: res.tracks, isErrorLess: true}));
                             })
                         })
@@ -79,7 +82,8 @@ function SearchForm() {
                     seed: '',
                     energy: 0
                 }
-            
+                setIsLoading(true);
+
                 artist.name = userSearchText;
                 getSeed({
                     accessToken: authValues.access_token, 
@@ -88,6 +92,7 @@ function SearchForm() {
                 })
                 .then(res => {
                     if(res.artists.items.length === 0){
+                        setIsLoading(false);
                         dispatch(setRecommendations({tracks: [], isErrorLess: false}));
                     }else{
                         artist.seed = res.artists.items[0].id;
@@ -97,6 +102,7 @@ function SearchForm() {
                             seed: artist.seed
                         })
                         .then(res => {
+                            setIsLoading(false);
                             dispatch(setRecommendations({tracks: res.tracks, isErrorLess: true}));
                         })
                     }
@@ -107,7 +113,7 @@ function SearchForm() {
         }
     };
     return(
-        <div className="search-form">
+        <div className={isLoading ? "search-form --loading" : "search-form"}>
             <label 
                 className="search-form__label"
                 to="userInput"

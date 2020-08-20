@@ -33,9 +33,8 @@ function LoginScreen() {
                         src="https://open.spotify.com/embed/playlist/6qnV44cGctRXC1LzVvLmeF" 
                         width="100%" 
                         height="80" 
-                        frameborder="0" 
+                        frameBorder="0" 
                         allowtransparency="true" 
-                        allow="encrypted-media"
                     />
                 </div>
             </div>

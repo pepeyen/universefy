@@ -4,7 +4,6 @@ $ligtherGreen: #1ED760;
 $green: #27b8a3;
 $black: #1b1c1c;
 
-
 .search-form{
     display: flex;
     flex-direction: column;
@@ -15,9 +14,12 @@ $black: #1b1c1c;
     margin: 2vh auto 2vh auto;
     border: .1rem solid #272929;
     border-radius: 50%;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
 
     &:focus-within{
-        animation: glowing-border 3000ms infinite;
+        transition: border-color ease-in-out 1s ;
+        border-color: $lightGreen;
     }
     &__label{
         font-family: "Nunito-SemiBold";
@@ -36,9 +38,12 @@ $black: #1b1c1c;
         color: $white;
         padding: .5rem 0 .5rem 0;
         font-size: 1rem;
-
         border: .1rem solid transparent;
         border-radius: 2rem;
+
+        &:focus{
+            border-color: transparent;
+        }
     }
     &__types{
         display: flex;
@@ -130,6 +135,16 @@ $black: #1b1c1c;
     color: $black;
     border-color: $green;
     background-color: $green;
+}
+.--loading{
+    animation: glowing-border 3000ms infinite;
+}
+.--error{
+    border-color: red;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 @keyframes glowing-border {
     0% { border-color: #272929; }

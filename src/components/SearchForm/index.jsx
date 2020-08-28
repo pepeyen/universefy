@@ -12,6 +12,9 @@ import getSeed from '../../services/getSeed';
 import getAuthValues from '../../services/getAuthValues';
 import getRecommendations from '../../services/getRecommendations';
 import getTrackEnergy from '../../services/getTrackEnergy';
+import generateSeedList from '../../services/generateSeedList';
+import generateNodeQuadrant from '../../services/generateNodeQuadrant';
+import generateNodeOrbit from '../../services/generateNodeOrbit';
 
 function SearchForm() {
     const [userSearchText, setUserSearchText] = useState('');
@@ -51,7 +54,10 @@ function SearchForm() {
                 .then(res => {
                     if(res.tracks.items.length === 0){
                         setIsLoading(false);
-                        dispatch(setRecommendations({tracks: [], isErrorLess: false}));
+                        dispatch(setRecommendations({
+                            tracks: [], 
+                            isErrorLess: false
+                        }));
                     }else{
                         track.name = res.tracks.items[0].name;
                         track.seed = res.tracks.items[0].id;
@@ -65,12 +71,29 @@ function SearchForm() {
                                 accessToken: authValues.access_token, 
                                 searchType: "Track",
                                 seed: track.seed,
-                                trackEnergy: track.energy,
                                 trackPopularity: track.popularity
                             })
                             .then(res => {
                                 setIsLoading(false);
-                                dispatch(setRecommendations({tracks: res.tracks, isErrorLess: true}));
+
+                                let seedList = generateSeedList(res.tracks);
+
+                                getTrackEnergy(authValues.access_token, seedList)
+                                .then(res => {
+                                    let nodeStatus = [res.audio_features.length];
+
+                                    res.audio_features.forEach((element,i) => {
+                                        nodeStatus[i] ={
+                                            quadrant: generateNodeQuadrant(element.energy),
+                                            orbit: generateNodeOrbit(element.tempo)
+                                        }
+                                    });
+                                })
+
+                                dispatch(setRecommendations({
+                                    tracks: res.tracks, 
+                                    isErrorLess: true
+                                }));
                             })
                         })
                     }
@@ -93,7 +116,10 @@ function SearchForm() {
                 .then(res => {
                     if(res.artists.items.length === 0){
                         setIsLoading(false);
-                        dispatch(setRecommendations({tracks: [], isErrorLess: false}));
+                        dispatch(setRecommendations({
+                            tracks: [], 
+                            isErrorLess: false
+                        }));
                     }else{
                         artist.seed = res.artists.items[0].id;
                         getRecommendations({
@@ -103,7 +129,10 @@ function SearchForm() {
                         })
                         .then(res => {
                             setIsLoading(false);
-                            dispatch(setRecommendations({tracks: res.tracks, isErrorLess: true}));
+                            dispatch(setRecommendations({
+                                tracks: res.tracks, 
+                                isErrorLess: true
+                            }));
                         })
                     }
                 })

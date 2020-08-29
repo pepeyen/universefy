@@ -13,7 +13,6 @@ import getAuthValues from '../../services/getAuthValues';
 import getRecommendations from '../../services/getRecommendations';
 import getTrackEnergy from '../../services/getTrackEnergy';
 import generateSeedList from '../../services/generateSeedList';
-import generateNodeQuadrant from '../../services/generateNodeQuadrant';
 import generateNodeOrbit from '../../services/generateNodeOrbit';
 
 function SearchForm() {
@@ -80,16 +79,20 @@ function SearchForm() {
 
                                 getTrackEnergy(authValues.access_token, seedList)
                                 .then(res => {
-                                    let nodeStatus = [res.audio_features.length];
+                                    let nodeCoordinates = [res.audio_features.length];
 
                                     res.audio_features.forEach((element,i) => {
-                                        nodeStatus[i] ={
-                                            quadrant: generateNodeQuadrant(element.energy),
-                                            orbit: generateNodeOrbit(element.tempo)
+                                        nodeCoordinates[i] = {
+                                            /**
+                                             * Simple formula as 
+                                             * (50 * generateNodeOrbit(element.tempo)) being the orbit radius
+                                             * and Math.cos() || Math.sin() being the orbit radian
+                                             */
+                                            x: (50 * generateNodeOrbit(element.tempo)) * Math.cos((element.energy * 6.28)),
+                                            y: (50 * generateNodeOrbit(element.tempo)) * Math.sin((element.energy * 6.28))
                                         }
                                     });
                                 })
-
                                 dispatch(setRecommendations({
                                     tracks: res.tracks, 
                                     isErrorLess: true

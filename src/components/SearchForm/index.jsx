@@ -13,7 +13,7 @@ import getAuthValues from '../../services/getAuthValues';
 import getRecommendations from '../../services/getRecommendations';
 import getTrackEnergy from '../../services/getTrackEnergy';
 import generateSeedList from '../../services/generateSeedList';
-import generateNodeOrbit from '../../services/generateNodeOrbit';
+import generateNodesCoordinates from '../../services/generateNodesCoordinates';
 
 function SearchForm() {
     const [userSearchText, setUserSearchText] = useState('');
@@ -79,19 +79,7 @@ function SearchForm() {
 
                                 getTrackEnergy(authValues.access_token, seedList)
                                 .then(res => {
-                                    let nodeCoordinates = [res.audio_features.length];
-
-                                    res.audio_features.forEach((element,i) => {
-                                        nodeCoordinates[i] = {
-                                            /**
-                                             * Simple formula as 
-                                             * (50 * generateNodeOrbit(element.tempo)) being the orbit radius
-                                             * and Math.cos() || Math.sin() being the orbit radian
-                                             */
-                                            x: 200 + (50 * generateNodeOrbit(element.tempo)) * Math.cos((element.energy * 6.28)),
-                                            y: (50 * generateNodeOrbit(element.tempo)) * Math.sin((element.energy * 6.28))
-                                        }
-                                    });
+                                    console.log(generateNodesCoordinates(res.audio_features));
                                 })
                                 dispatch(setRecommendations({
                                     tracks: res.tracks, 
@@ -132,6 +120,13 @@ function SearchForm() {
                         })
                         .then(res => {
                             setIsLoading(false);
+
+                            let seedList = generateSeedList(res.tracks);
+
+                            getTrackEnergy(authValues.access_token, seedList)
+                            .then(res => {
+                                console.log(generateNodesCoordinates(res.audio_features));
+                            })
                             dispatch(setRecommendations({
                                 tracks: res.tracks, 
                                 isErrorLess: true

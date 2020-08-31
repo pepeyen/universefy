@@ -88,7 +88,7 @@ function SearchForm() {
                                              * (50 * generateNodeOrbit(element.tempo)) being the orbit radius
                                              * and Math.cos() || Math.sin() being the orbit radian
                                              */
-                                            x: (50 * generateNodeOrbit(element.tempo)) * Math.cos((element.energy * 6.28)),
+                                            x: 200 + (50 * generateNodeOrbit(element.tempo)) * Math.cos((element.energy * 6.28)),
                                             y: (50 * generateNodeOrbit(element.tempo)) * Math.sin((element.energy * 6.28))
                                         }
                                     });

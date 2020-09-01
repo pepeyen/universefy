@@ -1,4 +1,4 @@
-const  generateNodeOrbit = require('./generateNodeOrbit');
+import  generateNodeOrbit from './generateNodeOrbit.js';
 
 export default function generateNodeCoordinates(nodeList){
     const maxRadius = 200,

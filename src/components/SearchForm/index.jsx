@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import './searchform.scss';
 
 //Actions
-import {setAuthValues, setRecommendations} from '../../actions'
+import {setAuthValues, setRecommendations, setNodesCoordinates} from '../../actions'
 
 //Services
 import getSeed from '../../services/getSeed';
@@ -77,14 +77,16 @@ function SearchForm() {
 
                                 let seedList = generateSeedList(res.tracks);
 
-                                getTrackEnergy(authValues.access_token, seedList)
-                                .then(res => {
-                                    console.log(generateNodesCoordinates(res.audio_features));
-                                })
                                 dispatch(setRecommendations({
                                     tracks: res.tracks, 
+                                    
                                     isErrorLess: true
                                 }));
+
+                                getTrackEnergy(authValues.access_token, seedList)
+                                .then(res => {
+                                    dispatch(setNodesCoordinates(generateNodesCoordinates(res.audio_features)));
+                                })
                             })
                         })
                     }
@@ -123,14 +125,15 @@ function SearchForm() {
 
                             let seedList = generateSeedList(res.tracks);
 
-                            getTrackEnergy(authValues.access_token, seedList)
-                            .then(res => {
-                                console.log(generateNodesCoordinates(res.audio_features));
-                            })
                             dispatch(setRecommendations({
                                 tracks: res.tracks, 
                                 isErrorLess: true
                             }));
+
+                            getTrackEnergy(authValues.access_token, seedList)
+                            .then(res => {
+                                dispatch(setNodesCoordinates(generateNodesCoordinates(res.audio_features)));
+                            });
                         })
                     }
                 })

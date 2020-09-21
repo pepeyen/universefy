@@ -9,22 +9,20 @@ import Node from '../Node';
 import './nodes.scss';
 
 function Nodes() {
-    const recommendationsTracks = useSelector(state => state.recommendations.tracks);
-    const recommendationsIsErrorless = useSelector(state => state.recommendations.isErrorLess);
+    const recommendations = useSelector(state => state.recommendations);
     
-    
-    if(recommendationsIsErrorless === true){
-        if(recommendationsTracks.length > 0){
+    if(recommendations.isErrorLess === true){
+        if(recommendations.tracks.length > 0){
             return(
                 <div className="nodes">
                     <SearchForm />
                     {
-                        recommendationsTracks.map(function(item, i){
+                        recommendations.tracks.map(function(item, i){
                             return(
                                 <Node 
                                     key={i}
-                                    trackName={item.name}
-                                    trackURL={item.external_urls.spotify}
+                                    track={item}
+                                    trackKey={i}
                                 />
                             ) 
                         })

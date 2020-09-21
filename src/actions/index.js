@@ -11,3 +11,10 @@ export const setRecommendations = (tracks) => {
         recommendations: tracks
     }
 };
+
+export const setNodesCoordinates = (coordinateList) => {
+    return {
+        type: 'SET_NODES_COORDINATES',
+        nodesCordinates: coordinateList
+    }
+}

@@ -4,6 +4,7 @@ $green: #27b8a3;
 $black: #1b1c1c;
 
 .node{
+    text-align: center;
     
     &__link{
         color: $white;
@@ -12,9 +13,14 @@ $black: #1b1c1c;
 }
 @media (min-width: 801px) {
     .node{
+        position: absolute;
+
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: blue;
 
         &__link{
-    
             &:hover{
                 color: $green;
             }

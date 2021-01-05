@@ -14,13 +14,17 @@ $black: #1b1c1c;
 @media (min-width: 801px) {
     .node{
         position: absolute;
-
-        width: 10px;
-        height: 10px;
+        top: -18vh;
+        left: 20.5vh;
         border-radius: 50%;
-        background-color: blue;
 
         &__link{
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: blue;
+
             &:hover{
                 color: $green;
             }

@@ -9,6 +9,7 @@ function Node(props){
     let nodeStyle = {}
 
     if(props.trackKey !== undefined && nodesCoordinates.length > 0){
+        console.log(nodesCoordinates[props.trackKey])
         nodeStyle = {
             margin: `${nodesCoordinates[props.trackKey].y}vh 0 0 ${nodesCoordinates[props.trackKey].x}vh`,
         };

@@ -18,7 +18,7 @@ function LoginScreen() {
                 <div className="login__logo"/>
                 <a 
                     className="login"
-                    href="http://localhost:8888/login"
+                    href={`${process.env.REACT_APP_BACK_END_HOST}/login`}
                 >
                     <button 
                         className="login__button" 
